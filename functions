@@ -1,0 +1,1 @@
+function questionar { /usr/bin/dnf list installed |awk '{print $1}'|sed 's/.[^.]*.$//'| grep $1; }

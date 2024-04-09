@@ -1,0 +1,58 @@
+Nome do anfitrião:
+
+$ sudo hostnamectl set-hostname fedora
+
+
+Aliases:
+
+alias grub-actualizar="sudo grub2-mkconfig -o /boot/grub2/grub.cfg"
+alias grub-instalar="sudo rm /boot/grub2/grub.cfg && sudo rm /boot/efi/EFI/fedora/grub.cfg && sudo dnf reinstall grub2* shim*"
+alias actualizar="sudo dnf upgrade"
+alias procurar="dnf search"
+alias instalar="sudo dnf install"
+alias desinstalar="sudo dnf remove"
+alias orfãos="sudo dnf autoremove"
+alias cache="sudo dnf clean all"
+alias pacotes-instalados="dnf list installed | sed '1d' |wc -l"
+
+PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+
+
+Functions:
+
+$ nano ~/.bash_functions/questionar
+
+function questionar { /usr/bin/dnf list installed |awk '{print $1}'|sed 's/.[^.]*.$//'| grep $1; }
+
+$ nano ~/.bashrc
+
+source ~/.bash_functions/*
+
+
+Configurar o dnf:
+
+$ sudo nano /etc/dnf/dnf.conf
+
+max_parallel_downloads=20
+fastestmirror=True
+defaultyes=True
+deltarpm=False
+
+
+Tipod de letra dejavu:
+
+$ sudo dnf install dejavu-sans-fonts dejavu-sans-mono-fonts dejavu-serif-fonts
+
+
+Duplicados do dnf:
+
+$ sudo dnf install dnf-utils
+$ sudo package-cleanup --cleandupes
+
+RPM Fusion
+
+Proton VPN
+
+SpiderOak ONE
+
+Tipo de letra da Microsoft
