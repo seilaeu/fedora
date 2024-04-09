@@ -17,6 +17,9 @@ alias pacotes-instalados="dnf list installed | sed '1d' |wc -l"
 
 PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
+Alguns pacotes importantes:
+
+$ instalar kate ktorrent kmymoney kompare vlc unrar xkill git-core ncdu
 
 Functions:
 
@@ -39,14 +42,21 @@ defaultyes=True
 deltarpm=False
 
 
+$ desinstalar im-chooser qt5-qdbusviewer kaddressbook kmail kontact korganizer libreoffice-draw \
+libreoffice-impress libreoffice-math kolourpaint konversation krdc krfb plasma-welcome kcharselect kmag \
+kmousetool kmouth kmahjongg kmines kpat anaconda ImageMagick qemu-guest-agent* khelpcenter cups \
+bolt colord anaconda-core anaconda-gui anaconda-install-env-deps cups-client cups-pk-helper flatpak-kcm \
+flatpak-libs aajohan-comfortaa-fonts gnome-keyring gnome-keyring-pam
+
+
 Tipod de letra dejavu:
 
-$ sudo dnf install dejavu-sans-fonts dejavu-sans-mono-fonts dejavu-serif-fonts
+$ instalar dejavu-sans-fonts dejavu-sans-mono-fonts dejavu-serif-fonts
 
 
 Duplicados do dnf:
 
-$ sudo dnf install dnf-utils
+$ instalar dnf-utils
 $ sudo package-cleanup --cleandupes
 
 RPM Fusion
