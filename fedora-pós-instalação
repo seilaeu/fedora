@@ -3,43 +3,46 @@ Nome do anfitrião:
 $ sudo hostnamectl set-hostname fedora
 
 
+Configurar o dnf:
+
+$ sudo nano /etc/dnf/dnf.conf
+
+max_parallel_downloads=20
+defaultyes=True
+deltarpm=False
+
 Aliases:
 
-alias grub-actualizar="sudo grub2-mkconfig -o /boot/grub2/grub.cfg"
+alias grub-actualizar="sudo grub2-mkconfig -o /boot/grub2/grub.cfg && sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg"
 alias grub-instalar="sudo rm /boot/grub2/grub.cfg && sudo rm /boot/efi/EFI/fedora/grub.cfg && sudo dnf reinstall grub2* shim*"
 alias actualizar="sudo dnf upgrade"
 alias procurar="dnf search"
 alias instalar="sudo dnf install"
 alias desinstalar="sudo dnf remove"
+alias pertencer="rpm -qf"
 alias orfãos="sudo dnf autoremove"
 alias cache="sudo dnf clean all"
 alias pacotes-instalados="dnf list installed | sed '1d' |wc -l"
 
 PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
-Alguns pacotes importantes:
-
-$ instalar kate ktorrent kmymoney kompare vlc unrar xkill git-core ncdu
-
 Functions:
 
-$ nano ~/.bash_functions/questionar
+$ nano .bash_functions/questionar-simples
 
-function questionar { /usr/bin/dnf list installed |awk '{print $1}'|sed 's/.[^.]*.$//'| grep $1; }
+function questionar-simples { /usr/bin/dnf list installed |awk '{print $1}'|sed 's/.[^.]*.$//'| grep $1; }
+
+$ nano .bash_functions/questionar-detalhado
+
+function questionar-detalhado { /usr/bin/dnf list installed |awk '{print $1 "-" $2}'| sed 's/[.][^-+]*-/-/' | grep $1; }
 
 $ nano ~/.bashrc
 
-source ~/.bash_functions/*
+for f in ~/.bash_functions/* ; do source $f; done
 
+Alguns pacotes importantes:
 
-Configurar o dnf:
-
-$ sudo nano /etc/dnf/dnf.conf
-
-max_parallel_downloads=20
-fastestmirror=True
-defaultyes=True
-deltarpm=False
+$ instalar kate ktorrent kmymoney kompare vlc unrar xkill git-core ncdu
 
 
 $ desinstalar im-chooser qt5-qdbusviewer kaddressbook kmail kontact korganizer libreoffice-draw \
@@ -66,3 +69,10 @@ Proton VPN
 SpiderOak ONE
 
 Tipo de letra da Microsoft
+
+NumLock no arranque:
+
+$ sudo nano /var/lib/sddm/.config/kcminputrc
+
+[Keyboard]
+NumLock=0
