@@ -10,35 +10,53 @@ $ sudo nano /etc/dnf/dnf.conf
 max_parallel_downloads=20
 defaultyes=True
 deltarpm=False
+installonly_limit=3
 
 Aliases:
 
 alias grub-actualizar="sudo grub2-mkconfig -o /boot/grub2/grub.cfg && sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg"
 alias grub-instalar="sudo rm /boot/grub2/grub.cfg && sudo rm /boot/efi/EFI/fedora/grub.cfg && sudo dnf reinstall grub2* shim*"
-alias actualizar="sudo dnf upgrade"
+alias actualizar="sudo dnf upgrade --refresh"
 alias procurar="dnf search"
 alias instalar="sudo dnf install"
 alias desinstalar="sudo dnf remove"
 alias pertencer="rpm -qf"
+#alias questionar='rpm -qa --qf "%{NAME}\n" | grep -Ev gpg-pubkey| sort |grep'
 alias orfãos="sudo dnf autoremove"
 alias cache="sudo dnf clean all"
-alias pacotes-instalados="dnf list installed | sed '1d' |wc -l"
+alias pacotes-instalados-ficheiro='rpm -qa --qf "%{NAME}\n" | grep -Ev gpg-pubkey| sort > pacotes-fedora-rpm'
+alias pacotes-instalados-listar='rpm -qa --qf "%{NAME}\n" | grep -Ev gpg-pubkey| sort'
+alias pacotes-instalados-número='rpm -qa --qf "%{NAME}\n" | grep -Ev gpg-pubkey| wc -l'
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# Ignorar e apagar entradas em duplicado no histórico da bash:
+HISTCONTROL=ignoreboth:erasedups
+
+# Número máximo de comandos do histórico da bash que serão guardados:
+HISTSIZE=1000
+HISTFILESIZE=2000
 
 PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
 Functions:
 
+$ mkdir .bash_functions/
+
 $ nano .bash_functions/questionar-simples
 
-function questionar-simples { /usr/bin/dnf list installed |awk '{print $1}'|sed 's/.[^.]*.$//'| grep $1; }
+function questionar-simples { /usr/bin/dnf list --installed |awk '{print $1}'|sed 's/.[^.]*.$//'| grep $1; }
 
 $ nano .bash_functions/questionar-detalhado
 
-function questionar-detalhado { /usr/bin/dnf list installed |awk '{print $1 "-" $2}'| sed 's/[.][^-+]*-/-/' | grep $1; }
+function questionar-detalhado { /usr/bin/dnf list --installed |awk '{print $1 "-" $2}'| sed 's/[.][^-+]*-/-/' | grep $1; }
 
 $ nano ~/.bashrc
 
 for f in ~/.bash_functions/* ; do source $f; done
+
+export PATH="/media/dados/arch_linux/scripts/:$PATH"
 
 Alguns pacotes importantes:
 
@@ -52,7 +70,7 @@ bolt colord anaconda-core anaconda-gui anaconda-install-env-deps cups-client cup
 flatpak-libs aajohan-comfortaa-fonts gnome-keyring gnome-keyring-pam
 
 
-Tipod de letra dejavu:
+Tipo de letra dejavu:
 
 $ instalar dejavu-sans-fonts dejavu-sans-mono-fonts dejavu-serif-fonts
 
