@@ -94,3 +94,7 @@ $ sudo nano /var/lib/sddm/.config/kcminputrc
 
 [Keyboard]
 NumLock=0
+
+# Impedir que abra uma janela de autenticação quando executamos git push origin master:
+
+$ desinstalar openssh-askpass
