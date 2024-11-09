@@ -70,9 +70,9 @@ bolt colord anaconda-core anaconda-gui anaconda-install-env-deps cups-client cup
 flatpak-libs aajohan-comfortaa-fonts gnome-keyring gnome-keyring-pam
 
 
-Tipo de letra dejavu:
+Tipo de letra dejavu e bitstream vera:
 
-$ instalar dejavu-sans-fonts dejavu-sans-mono-fonts dejavu-serif-fonts
+$ instalar dejavu-sans-fonts dejavu-sans-mono-fonts dejavu-serif-fonts bitstream-vera-fonts-all
 
 
 Duplicados do dnf:
