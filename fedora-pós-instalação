@@ -97,4 +97,11 @@ NumLock=0
 
 # Impedir que abra uma janela de autenticação quando executamos git push origin master:
 
-$ desinstalar openssh-askpass
+$ desinstalar openssh-askpass ksshaskpass
+
+$ nano ~/.bashrc
+
+unset SSH_ASKPASS
+
+
+
